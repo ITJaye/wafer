@@ -1,44 +1,26 @@
-<img src="https://cdn.rawgit.com/tencentyun/wafer/master/logo.svg" width="32" /> Wafer - 快速构建具备弹性伸缩能力的微信小程序
+[新wafer]支持微信小程序登陆授权新要求
 =========================================
 
-Wafer 是腾讯云面向广大开发者提供的小程序开发全栈资源套件，套件提供小程序会话管理服务和 WebSocket 信道服务，部署方式具备良好的弹性伸缩能力，可以快速应对业务的爆发增长，同时具备较低的开发门槛。
 
-如果你希望自己动手搭建小程序，[小程序实验室](https://www.qcloud.com/developer/labs/lab/10004)将提供 step by step 的教程帮助你完成目标！
+微信小程序新的登陆方式修改为：
+用户每次进入小程序，通过wx. checkSession检查会话状态，调用wx.login获取code发送到服务端，服务端通过code换取用户的openId、unionId和session_key，此时注册用户信息，给定默认的头像和昵称，达到用户注册的目的，并给客户端返回用户的userInfo
+1.小程序端需要用户头像和昵称的时候，小程序端布置【获取用户头像昵称按钮】，用户点击时通过wx.getUserInfo带上withCredentials:true 获取 encryptedData 和 iv 上传到服务端进行信息解密，解密后得到用户的userInfo，此时可以更新数据库中用户的信息。
+
 
 阅读 [Wiki](https://github.com/tencentyun/wafer/wiki) 文档了解 Wafer 提供的服务、部署方法、架构设计以及实现细节。
 
 ## 开发者资源索引
 
 * 客户端
-  - [SDK](https://github.com/tencentyun/wafer-client-sdk) - 客户端增强 SDK 源码
-  - [Demo](https://github.com/tencentyun/wafer-client-demo) - 客户端 Demo
+  - [SDK](https://github.com/ITJaye/wafer-client-sdk) - 客户端增强 SDK 源码
 * 业务服务器
-  - [PHP SDK](https://github.com/tencentyun/wafer-php-server-sdk) - PHP 解决方案的 SDK 源码及 Demo
-  - [C# SDK](https://github.com/tencentyun/wafer-csharp-server-sdk) - C# 解决方案的 SDK 源码及 Demo
-  - [Java SDK](https://github.com/tencentyun/wafer-java-server-sdk) - Java 解决方案的 SDK 源码及 Demo
-  - [Node SDK](https://github.com/tencentyun/wafer-node-server-sdk) - Node 解决方案的 SDK 源码及 Demo
+  - [PHP SDK](https://github.com/ITJaye/wafer-php-server-sdk) - PHP 解决方案的 SDK 源码
 * 会话服务器
-  - [Session Server](https://github.com/tencentyun/wafer-session-server) - PHP 会话服务器的源码
-  - [Node Middleware](https://github.com/tencentyun/wafer-node-session) - 独立 NodeJS 会话服务中间件
+  - [Session Server](https://github.com/ITJaye/wafer-session-server) - PHP 会话服务器的源码
 * 微信小程序文档
-  - [小程序介绍](https://mp.weixin.qq.com/debug/wxadoc/introduction)
-  - [设计指南](https://mp.weixin.qq.com/debug/wxadoc/design/)
-  - [开发指南](https://mp.weixin.qq.com/debug/wxadoc/dev/)
-    - [组件](https://mp.weixin.qq.com/debug/wxadoc/dev/component/)
-    - [API 文档](https://mp.weixin.qq.com/debug/wxadoc/dev/api/)
-    - [开发工具下载](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html)
-* 优质第三方资源
-  - [10 分钟实现 PHP 业务](https://github.com/tencentyun/wafer/issues/5) - @tsr106
+  
+  - 新登陆授权要求 [小程序授权登陆新要求](https://developers.weixin.qq.com/blogdetail?action=get_post_info&lang=zh_CN&token=&docid=c45683ebfa39ce8fe71def0631fad26b)
+  - 原始项目 [Wafer](https://github.com/tencentyun/wafer)
+* 部署方法
   - [自行部署 Wafer 的一点心得](https://github.com/tencentyun/wafer/issues/8) - @ITJaye
 
-## 关于 Wafer
-
-Wafer 是一个愿景，希望可以给开发者提供到像晶片一样精致且可靠的开源项目，也希望和广大开发者一起进行打磨，打造健康的小程序全栈开发生态。
-
-Wafer 的全称是 Weapp Application Fullstack Essential Resources，即微信小程序全栈基础资源。
-
-关于 Wafer 的探索历程，可以阅读[这篇文章](https://github.com/tencentyun/blog/issues/1)
-
-## LICENSE
-
-[MIT](LICENSE)
